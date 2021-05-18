@@ -1,0 +1,22 @@
+{
+  "name": "rr-qa-saucedemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinasierra/rr-qa-saucedemo.git"
+  },
+  "author": "Martina Sierra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinasierra/rr-qa-saucedemo/issues"
+  },
+  "homepage": "https://github.com/martinasierra/rr-qa-saucedemo#readme",
+  "dependencies": {
+    "@wdio/cli": "^7.6.0"
+  }
+}
