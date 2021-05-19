@@ -2,11 +2,16 @@ import Page from './page';
 
 class LoginPage extends Page {
   
-    get inputUsername () { return $('input[name="user-name"]') }
-    get inputPassword () { return $('input[name="password"]') }
-    get btnSubmit () { return $('button[type="login-button"]') }
-
-  
+    get inputUsername () { return $('[name="user-name"]') }
+    get inputPassword () { return $('[name="password"]') }
+    get btnSubmit () { return $('[name="login-button"]') }
+    get divErrorMsg () { return $('.error-message-container')}
+    get errorMsg () { return $('h3')}
+   
+   
+    open () {
+        return super.open('');
+    }
   
 }
 
