@@ -1,5 +1,5 @@
 import LoginPage from '../pageobjects/login.page';
-import ProductsPage from '../pageobjects/products.page';
+import InventoryPage from '../pageobjects/inventory.page';
 
 describe('Login Form', () => {
    
@@ -9,7 +9,7 @@ describe('Login Form', () => {
         LoginPage.inputPassword.setValue('secret_sauce');
         LoginPage.btnSubmit.click();
         browser.pause(2000);
-        expect(ProductsPage.title).toHaveText('PRODUCTS');
+        expect(InventoryPage.title).toHaveText('PRODUCTS');
     });
 
     it('should show Password is required message when empty password is entered', () => {
@@ -68,8 +68,17 @@ describe('Login Form', () => {
         LoginPage.inputPassword.setValue('secret_sauce');
         LoginPage.btnSubmit.click();
         browser.pause(2000);
-        expect(ProductsPage.imgBackpack).not.toHaveAttributeContaining('src', '/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
-        expect(ProductsPage.imgBikeLight).not.toHaveAttributeContaining('src', '/static/media/bike-light-1200x1500.a0c9caae.jpg');
-        expect(ProductsPage.imgBoltTShirt).not.toHaveAttributeContaining('src', '/static/media/bolt-shirt-1200x1500.c0dae290.jpg"');
+        expect(InventoryPage.imgBackpack).not.toHaveAttributeContaining('src', '/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
+        expect(InventoryPage.imgBikeLight).not.toHaveAttributeContaining('src', '/static/media/bike-light-1200x1500.a0c9caae.jpg');
+        expect(InventoryPage.imgBoltTShirt).not.toHaveAttributeContaining('src', '/static/media/bolt-shirt-1200x1500.c0dae290.jpg"');
     }); 
+/*
+    it('should log in in a version with', () => {
+        LoginPage.open();
+        LoginPage.inputUsername.setValue('performance_glitch_user');
+        LoginPage.inputPassword.setValue('secret_sauce');
+        LoginPage.btnSubmit.click();
+        browser.waitUntil('pageLoad', { timeout: 2000, timeoutMsg: 'expected text to be different after 5s'})
+        expect(InventoryPage.title).toHaveText('PRODUCTS');
+    }); */
 });
