@@ -11,6 +11,7 @@ class InventoryPage extends Page {
     get wprapMenu() { return $('.bm-menu-wrap')}
     get itemPrice() { return $$('.inventory_item_price')}
     get btnCrossMenu() { return $('#react-burger-cross-btn')}
+    get btnAllItems() { return $('#inventory_sidebar_link')}
     get btnAboutLink() { return $('#about_sidebar_link')}
     get btnLogout() { return $('#logout_sidebar_link')}
     get btnResetApp() { return $('#reset_sidebar_link')}
@@ -25,8 +26,12 @@ class InventoryPage extends Page {
     //Bolt T-Shirt Product
     get imgBoltTShirt() { return $('#item_1_img_link img')}
 
+    //Fleece Jacket Product
+    get btnAddFleeceJacket() { return $('[name="add-to-cart-sauce-labs-fleece-jacket"]')}
+
     //Test.allthethings() T-Shirt Product
     get btnAddTestTShirt() { return $('[name="add-to-cart-test.allthethings()-t-shirt-(red)"]')}
+    get btnRmTestTShirt() { return $('[name="remove-test.allthethings()-t-shirt-(red)"]')}
 
     get btnTwitterLink() { return $('.social_twitter a')}
     get btnFacebookLink() { return $('.social_facebook a')}
