@@ -2,7 +2,7 @@ import Page from './page';
 
 class InventoryPage extends Page {
   
-    get title() { return $('.title')}
+    //Cart
     get btnCart() { return $('.shopping_cart_link')}
     get badgeCart() { return $('.shopping_cart_badge')}
 
@@ -23,6 +23,9 @@ class InventoryPage extends Page {
     get btnAddBikeLight() { return $('[name="add-to-cart-sauce-labs-bike-light"]')}
     get btnRmBikeLight() { return $('[name="remove-sauce-labs-bike-light"]')}
 
+    //Backpack Product
+    get btnAddBackpack() { return $('[name="add-to-cart-sauce-labs-backpack"]')}
+
     //Bolt T-Shirt Product
     get imgBoltTShirt() { return $('#item_1_img_link img')}
 
@@ -33,6 +36,7 @@ class InventoryPage extends Page {
     get btnAddTestTShirt() { return $('[name="add-to-cart-test.allthethings()-t-shirt-(red)"]')}
     get btnRmTestTShirt() { return $('[name="remove-test.allthethings()-t-shirt-(red)"]')}
 
+    //Social Media Links
     get btnTwitterLink() { return $('.social_twitter a')}
     get btnFacebookLink() { return $('.social_facebook a')}
     get btnTLinkedinLink() { return $('.social_linkedin a')}
