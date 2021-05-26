@@ -1,5 +1,6 @@
 import LoginPage from '../pageobjects/login.page';
 import InventoryPage from '../pageobjects/inventory.page';
+import CartPage from '../pageobjects/cart.page';
 
 describe('Products Inventory', () => {
 
@@ -11,9 +12,7 @@ describe('Products Inventory', () => {
         });
         it('should allow access to Products Inventory',() => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('standard_user');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('standard_user','secret_sauce');
             expect(InventoryPage.title).toHaveText('PRODUCTS');
         }); 
     });
@@ -90,18 +89,14 @@ describe('Products Inventory', () => {
                 expect(browser).toHaveUrl('https://saucelabs.com/');
             });
             it('should logout', () => {LoginPage.open();
-                LoginPage.inputUsername.setValue('standard_user');
-                LoginPage.inputPassword.setValue('secret_sauce');
-                LoginPage.btnSubmit.click();
+                LoginPage.login('standard_user','secret_sauce');
                 InventoryPage.btnMenu.click();
                 browser.pause(4000);
                 InventoryPage.btnLogout.click();
                 expect(browser).toHaveUrl('https://www.saucedemo.com/');
             });
             it('should reset app state', () => {
-                LoginPage.inputUsername.setValue('standard_user');
-                LoginPage.inputPassword.setValue('secret_sauce');
-                LoginPage.btnSubmit.click();
+                LoginPage.login('standard_user','secret_sauce');
                 InventoryPage.btnAddTestTShirt.click();
                 InventoryPage.btnMenu.click();
                 browser.pause(4000);

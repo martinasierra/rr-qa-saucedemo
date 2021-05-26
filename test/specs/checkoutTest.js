@@ -9,9 +9,7 @@ describe('Shopping cart', () => {
         
         it('should select a product, proceed to checkout and continue', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('standard_user');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('standard_user','secret_sauce');
             InventoryPage.btnAddTestTShirt.click();
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();

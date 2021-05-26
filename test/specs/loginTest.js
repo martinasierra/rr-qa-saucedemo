@@ -6,18 +6,14 @@ describe('Login Form', () => {
     describe('Standard User', () => {
         it('should login correctly when standard_user and correct password is entered', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('standard_user');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('standard_user','secret_sauce');
             browser.pause(2000);
             expect(InventoryPage.title).toHaveText('PRODUCTS');
         });
 
         it('should show Password is required message when empty password is entered', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('standard_user');
-            LoginPage.inputPassword.setValue('');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('standard_user','');
             browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Epic sadface: Password is required');
@@ -25,9 +21,7 @@ describe('Login Form', () => {
 
         it('should show Username is required message when empty username is entered', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('','secret_sauce');
             browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Epic sadface: Username is required');
@@ -35,9 +29,7 @@ describe('Login Form', () => {
 
         it('should show Username is required message when empty data is entered', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('');
-            LoginPage.inputPassword.setValue('');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('','');
             browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Epic sadface: Username is required');
@@ -45,9 +37,7 @@ describe('Login Form', () => {
 
         it('should show error message when wrong data is in both inputs entered', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('example@gmail.com');
-            LoginPage.inputPassword.setValue('password');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('example@gmail.com','password');
             browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Epic sadface: Username and password do not match any user in this service');
@@ -57,9 +47,7 @@ describe('Login Form', () => {
     describe('Lock out User', () => {
         it('should deny access and show error message', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('locked_out_user');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('locked_out_user','secret_sauce');
             browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Epic sadface: Sorry, this user has been locked out.');
@@ -69,9 +57,7 @@ describe('Login Form', () => {
     describe('Problem User', () => {
         it('should log in in a version wrong images', () => {
             LoginPage.open();
-            LoginPage.inputUsername.setValue('problem_user');
-            LoginPage.inputPassword.setValue('secret_sauce');
-            LoginPage.btnSubmit.click();
+            LoginPage.login('problem_user','secret_sauce');
             browser.pause(2000);
             expect(InventoryPage.imgBackpack).not.toHaveAttributeContaining('src', '/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
             expect(InventoryPage.imgBikeLight).not.toHaveAttributeContaining('src', '/static/media/bike-light-1200x1500.a0c9caae.jpg');
