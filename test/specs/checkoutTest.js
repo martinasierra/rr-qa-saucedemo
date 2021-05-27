@@ -40,9 +40,9 @@ describe('Shopping cart', () => {
             InventoryPage.btnAddBackpack.click();
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();
-            CheckoutPage.inputFirstName.setValue(' '); 
-            CheckoutPage.inputLastName.setValue(' ');  
-            CheckoutPage.inputPostalCode.setValue(' ');
+            CheckoutPage.inputFirstName.setValue('12345'); 
+            CheckoutPage.inputLastName.setValue('6789');  
+            CheckoutPage.inputPostalCode.setValue('myZipCode');
             CheckoutPage.btnContinue.click();
             CheckoutPage.btnFinish.click();
             CartPage.btnB2products.click();

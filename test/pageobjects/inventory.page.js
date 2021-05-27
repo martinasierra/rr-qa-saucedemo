@@ -30,6 +30,7 @@ class InventoryPage extends Page {
     get imgBoltTShirt() { return $('#item_1_img_link img')}
 
     //Fleece Jacket Product
+    get titleFleeceJacket () { return $('#item_5_title_link')}
     get btnAddFleeceJacket() { return $('[name="add-to-cart-sauce-labs-fleece-jacket"]')}
 
     //Test.allthethings() T-Shirt Product
