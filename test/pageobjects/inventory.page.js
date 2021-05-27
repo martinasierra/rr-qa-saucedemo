@@ -17,20 +17,17 @@ class InventoryPage extends Page {
     get btnResetApp() { return $('#reset_sidebar_link')}
     
     //Bike Light Product
-    get imgBackpack() { return $('#item_4_img_link img')}
-    get imgBikeLight() { return $('#item_0_img_link img')}
-    get titleBikeLight() { return $('#item_0_title_link')}
     get btnAddBikeLight() { return $('[name="add-to-cart-sauce-labs-bike-light"]')}
     get btnRmBikeLight() { return $('[name="remove-sauce-labs-bike-light"]')}
 
     //Backpack Product
     get btnAddBackpack() { return $('[name="add-to-cart-sauce-labs-backpack"]')}
+    get btnRmBackpack() { return $('[name="remove-sauce-labs-backpack"]')}
 
     //Bolt T-Shirt Product
-    get imgBoltTShirt() { return $('#item_1_img_link img')}
+    get btnAddBoltTShirt () { return $()}
 
     //Fleece Jacket Product
-    get titleFleeceJacket () { return $('#item_5_title_link')}
     get btnAddFleeceJacket() { return $('[name="add-to-cart-sauce-labs-fleece-jacket"]')}
 
     //Test.allthethings() T-Shirt Product
@@ -45,6 +42,14 @@ class InventoryPage extends Page {
     
     open () {
         return super.open('inventory.html');
+    }
+
+    titleLinkSelector(num1) {
+        return $('#item_'+num1+'_title_link')
+    }
+
+    imgLinkSelector(num2) {
+        return $('#item_'+num2+'_img_link')
     }
     
 }
