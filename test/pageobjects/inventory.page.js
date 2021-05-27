@@ -2,20 +2,17 @@ import Page from './page';
 
 class InventoryPage extends Page {
   
-    //Cart
-    get btnCart() { return $('.shopping_cart_link')}
-    get badgeCart() { return $('.shopping_cart_badge')}
+    //Filters
+    get dropdownFilter() { return $('[data-test="product_sort_container"]')}
+    get filterAZ() { return $('[value="az"]')}
+    get filterZA() { return $('[value="za"]')}
+    get filterLoHi() { return $('[value="lohi"]')}
+    get filterHiLo() { return $('[value="hilo"]')}
 
-    //Menu
-    get btnMenu() { return $('#react-burger-menu-btn')}
-    get wprapMenu() { return $('.bm-menu-wrap')}
-    get itemPrice() { return $$('.inventory_item_price')}
-    get btnCrossMenu() { return $('#react-burger-cross-btn')}
-    get btnAllItems() { return $('#inventory_sidebar_link')}
-    get btnAboutLink() { return $('#about_sidebar_link')}
-    get btnLogout() { return $('#logout_sidebar_link')}
-    get btnResetApp() { return $('#reset_sidebar_link')}
-    
+    //Products
+    get itemsName() { return $$('.inventory_item_name')}
+    get itemsPrice() { return $$('.inventory_item_price')}
+
     //Bike Light Product
     get btnAddBikeLight() { return $('[name="add-to-cart-sauce-labs-bike-light"]')}
     get btnRmBikeLight() { return $('[name="remove-sauce-labs-bike-light"]')}
@@ -40,10 +37,24 @@ class InventoryPage extends Page {
     get btnAddOnesie() { return $('[name="add-to-cart-sauce-labs-onesie"]')}
     get btnRmOnesie() { return $('[name="remove-sauce-labs-onesie"]')}
 
+   
     //Social Media Links
     get btnTwitterLink() { return $('.social_twitter a')}
     get btnFacebookLink() { return $('.social_facebook a')}
     get btnTLinkedinLink() { return $('.social_linkedin a')}
+
+    //Cart
+    get btnCart() { return $('.shopping_cart_link')}
+    get badgeCart() { return $('.shopping_cart_badge')}
+
+    //Menu
+    get btnMenu() { return $('#react-burger-menu-btn')}
+    get wprapMenu() { return $('.bm-menu-wrap')}
+    get btnCrossMenu() { return $('#react-burger-cross-btn')}
+    get btnAllItems() { return $('#inventory_sidebar_link')}
+    get btnAboutLink() { return $('#about_sidebar_link')}
+    get btnLogout() { return $('#logout_sidebar_link')}
+    get btnResetApp() { return $('#reset_sidebar_link')}
 
     
     open () {

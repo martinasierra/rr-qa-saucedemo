@@ -1,6 +1,7 @@
 import LoginPage from '../pageobjects/login.page';
 import InventoryPage from '../pageobjects/inventory.page';
 import CartPage from '../pageobjects/cart.page';
+const NumericRegex = /[-]{0,1}[\d]*[.]{0,1}[\d]+/;
 
 describe('Products Inventory', () => {
 
@@ -17,8 +18,87 @@ describe('Products Inventory', () => {
         }); 
     });
 
-    describe('Products Validations', () => {
-        it('should lead to the product page by clicking in the product image',() => {
+    describe('Filters', () => {
+        it('should show dropdown optins when clicking it', () => {
+            InventoryPage.dropdownFilter.click();
+            expect(InventoryPage.filterAZ).toBeDisplayed();
+            expect(InventoryPage.filterZA).toBeDisplayed();
+            expect(InventoryPage.filterLoHi).toBeDisplayed();
+            expect(InventoryPage.filterLoHi).toBeDisplayed();
+        });
+
+        it('should select filter to be Z to A and order it', () => {
+            InventoryPage.filterZA.click();
+            browser.pause(2000);
+            let sortedElementsNames = [];
+            InventoryPage.itemsName.forEach(element => {
+                sortedElementsNames.push(element.getText());
+            });
+            let mockedSortedNames = [];
+            InventoryPage.itemsName.forEach(element => {
+            mockedSortedNames.push(element.getText());
+            });
+            mockedSortedNames = mockedSortedNames.sort(function (a, b) {
+                if (a > b) return -1;
+                else if (a < b) return 1;
+                return 0;
+            });
+            expect(sortedElementsNames).toEqual(mockedSortedNames);
+        });
+
+        it('should select filter to be A to Z and order it', () => {
+            InventoryPage.filterAZ.click();
+            browser.pause(2000);
+            let sortedElementsNames = [];
+            InventoryPage.itemsName.forEach(element => {
+                sortedElementsNames.push(element.getText());
+            });
+            let mockedSortedNames = [];
+            InventoryPage.itemsName.forEach(element => {
+                mockedSortedNames.push(element.getText());
+            });
+            mockedSortedNames = mockedSortedNames.sort();
+            expect(sortedElementsNames).toEqual(mockedSortedNames);
+        });
+
+        it('should select filter to be Low to High Price and order it', () =>{
+            InventoryPage.filterLoHi.click();
+            browser.pause(2000);
+            let sortedElementsPrices = [];
+            InventoryPage.itemsPrice.forEach(element => {
+                let numPriceText = element.getText();
+                let numPrice = parseFloat(numPriceText.match(NumericRegex));
+                sortedElementsPrices.push(numPrice);
+            });
+            let mockedSortedPrices = [];
+            InventoryPage.itemsPrice.forEach(element => {
+                let numPriceText = element.getText();
+                let numPrice = parseFloat(numPriceText.match(NumericRegex));
+                mockedSortedPrices.push(numPrice);
+            });
+            mockedSortedPrices = mockedSortedPrices.sort((a,b)=>a-b);
+            expect(sortedElementsPrices).toEqual(mockedSortedPrices);
+        });
+    });
+
+    describe('Prices', () => {
+        it('should have an $', () => {
+            InventoryPage.itemsPrice.forEach(element => {
+                expect(element).toHaveTextContaining('$')
+            });
+        });
+
+        it('should be differents than zero', () => {
+            InventoryPage.itemsPrice.forEach(element => {
+            let numPriceText = element.getText();
+            let numPrice = parseFloat(numPriceText.match(NumericRegex));  
+            expect(numPrice).not.toEqual(0);
+            });
+        });
+    });
+   
+    describe('Clickable elements', () => {
+        it('should lead to the products page by clicking in the products image',() => {
             for (let i = 0; i < 5; i++) {
                 InventoryPage.imgLinkSelector(i).click();
                 browser.pause(1000);
@@ -27,7 +107,7 @@ describe('Products Inventory', () => {
             }
         });
 
-        it('should lead to the product page by clicking in the product name',() => {
+        it('should lead to the products page by clicking in the products name',() => {
             InventoryPage.open();
             for (let j = 0; j < 5; j++) {
                 InventoryPage.titleLinkSelector(j).click();
@@ -36,16 +116,9 @@ describe('Products Inventory', () => {
                 CartPage.btnB2products.click();
             }
         });
-
-        it('all prices should have an $', () => {
-            InventoryPage.itemPrice.forEach(element => {
-                expect(element).toHaveTextContaining('$')
-            });
-        });
     });
 
     describe('Add/Remove Products', () => {
-       
         it('should change Add to Cart button to Remove button and n+1 to the shopping cart icon', () => {
             InventoryPage.btnAddBikeLight.click();
             InventoryPage.btnAddBackpack.click();
