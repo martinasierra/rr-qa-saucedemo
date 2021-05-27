@@ -25,14 +25,20 @@ class InventoryPage extends Page {
     get btnRmBackpack() { return $('[name="remove-sauce-labs-backpack"]')}
 
     //Bolt T-Shirt Product
-    get btnAddBoltTShirt () { return $()}
+    get btnAddBoltTShirt () { return $('[name="add-to-cart-sauce-labs-bolt-t-shirt"]')}
+    get btnRmBoltTShirt () { return $('[name="remove-sauce-labs-bolt-t-shirt"]')}
 
     //Fleece Jacket Product
     get btnAddFleeceJacket() { return $('[name="add-to-cart-sauce-labs-fleece-jacket"]')}
+    get btnRmFleeceJacket() { return $('[name="remove-sauce-labs-fleece-jacket"]')}
 
     //Test.allthethings() T-Shirt Product
     get btnAddTestTShirt() { return $('[name="add-to-cart-test.allthethings()-t-shirt-(red)"]')}
     get btnRmTestTShirt() { return $('[name="remove-test.allthethings()-t-shirt-(red)"]')}
+
+    //Onesie Product
+    get btnAddOnesie() { return $('[name="add-to-cart-sauce-labs-onesie"]')}
+    get btnRmOnesie() { return $('[name="remove-sauce-labs-onesie"]')}
 
     //Social Media Links
     get btnTwitterLink() { return $('.social_twitter a')}

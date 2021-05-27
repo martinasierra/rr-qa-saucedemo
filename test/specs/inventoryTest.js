@@ -37,29 +37,58 @@ describe('Products Inventory', () => {
             }
         });
 
-        it('should validate that all prices have an $', () => {
+        it('all prices should have an $', () => {
             InventoryPage.itemPrice.forEach(element => {
                 expect(element).toHaveTextContaining('$')
             });
         });
     });
 
-    describe('Add/Remove Product', () => {
+    describe('Add/Remove Products', () => {
        
-        it('should change Add to Cart button to Remove button and add a 1 to the shopping cart icon', () => {
-            InventoryPage.open();
-            browser.pause(1000);
+        it('should change Add to Cart button to Remove button and n+1 to the shopping cart icon', () => {
             InventoryPage.btnAddBikeLight.click();
-            expect(InventoryPage.btnRmBikeLight).toBeDisplayed();
+            InventoryPage.btnAddBackpack.click();
+            InventoryPage.btnAddBoltTShirt.click();
+            InventoryPage.btnAddFleeceJacket.click();
+            InventoryPage.btnAddTestTShirt.click();
+            InventoryPage.btnAddOnesie.click();
             browser.pause(1000);
+            expect(InventoryPage.btnRmBikeLight).toBeDisplayed();
+            expect(InventoryPage.btnRmBackpack).toBeDisplayed();
+            expect(InventoryPage.btnRmBoltTShirt).toBeDisplayed();
+            expect(InventoryPage.btnRmFleeceJacket).toBeDisplayed();
+            expect(InventoryPage.btnRmTestTShirt).toBeDisplayed();
+            expect(InventoryPage.btnRmOnesie).toBeDisplayed();
             expect(InventoryPage.btnRmBikeLight).toHaveText('REMOVE');
-            expect(InventoryPage.badgeCart).toHaveText('1');
+            expect(InventoryPage.btnRmBackpack).toHaveText('REMOVE');
+            expect(InventoryPage.btnRmBoltTShirt).toHaveText('REMOVE');
+            expect(InventoryPage.btnRmFleeceJacket).toHaveText('REMOVE');
+            expect(InventoryPage.btnRmTestTShirt).toHaveText('REMOVE');
+            expect(InventoryPage.btnRmOnesie).toHaveText('REMOVE');
+            expect(InventoryPage.badgeCart).toHaveText('6');
            });
 
-        it('should change Remove button to Add to Cart button and remove the 1 from the shopping cart icon', () => {
+        it('should change Remove button to Add to Cart button and n-1 from the shopping cart icon', () => {
             InventoryPage.btnRmBikeLight.click();
+            InventoryPage.btnRmBackpack.click();
+            InventoryPage.btnRmBoltTShirt.click();
+            InventoryPage.btnRmFleeceJacket.click();
+            InventoryPage.btnRmTestTShirt.click();
+            InventoryPage.btnRmOnesie.click();
+            browser.pause(1000);
             expect(InventoryPage.btnAddBikeLight).toBeDisplayed();
+            expect(InventoryPage.btnAddBackpack).toBeDisplayed();
+            expect(InventoryPage.btnAddBoltTShirt).toBeDisplayed();
+            expect(InventoryPage.btnAddFleeceJacket).toBeDisplayed();
+            expect(InventoryPage.btnAddTestTShirt).toBeDisplayed();
+            expect(InventoryPage.btnAddOnesie).toBeDisplayed();
             expect(InventoryPage.btnAddBikeLight).toHaveText('ADD TO CART');
+            expect(InventoryPage.btnAddBackpack).toHaveText('ADD TO CART');
+            expect(InventoryPage.btnAddBoltTShirt).toHaveText('ADD TO CART');
+            expect(InventoryPage.btnAddFleeceJacket).toHaveText('ADD TO CART');
+            expect(InventoryPage.btnAddTestTShirt).toHaveText('ADD TO CART');
+            expect(InventoryPage.btnAddOnesie).toHaveText('ADD TO CART');
             expect(InventoryPage.badgeCart).not.toBeDisplayed();
         }); 
     });
@@ -89,7 +118,7 @@ describe('Products Inventory', () => {
         describe('Links', () => {
             it('should redirect to Sauce Labs page', () => {
                 InventoryPage.btnMenu.click();
-                browser.pause(4000);
+                browser.pause(3000);
                 expect(InventoryPage.btnAboutLink).toHaveHref('https://saucelabs.com/');
                 InventoryPage.btnAboutLink.click();
                 expect(browser).toHaveUrl('https://saucelabs.com/');
@@ -98,7 +127,7 @@ describe('Products Inventory', () => {
                 LoginPage.open();
                 LoginPage.login('standard_user','secret_sauce');
                 InventoryPage.btnMenu.click();
-                browser.pause(4000);
+                browser.pause(3000);
                 InventoryPage.btnLogout.click();
                 expect(browser).toHaveUrl('https://www.saucedemo.com/');
             });
@@ -106,7 +135,7 @@ describe('Products Inventory', () => {
                 LoginPage.login('standard_user','secret_sauce');
                 InventoryPage.btnAddTestTShirt.click();
                 InventoryPage.btnMenu.click();
-                browser.pause(4000);
+                browser.pause(3000);
                 InventoryPage.btnResetApp.click();
                 expect(InventoryPage.badgeCart).not.toExist();
             });
