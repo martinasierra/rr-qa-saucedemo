@@ -25,14 +25,18 @@ describe('End to End Test 1', () => {
         expect(InventoryPage.badgeCart).toHaveText('2');
     });
 
-    it('should checkout and complete information', () => {
+    it('should contain added items', () => {
         InventoryPage.btnCart.click();
+        expect(InventoryPage.titleLinkSelector(5)).toBeDisplayed();
+        expect(InventoryPage.titleLinkSelector(0)).toBeDisplayed();
+    });
+
+    it('should checkout and complete information', () => {
         CartPage.btnCheckOut.click();
-        CheckoutPage.inputFirstName.setValue('Justine'); 
-        CheckoutPage.inputLastName.setValue('Anderson');  
-        CheckoutPage.inputPostalCode.setValue('4400');
-        CheckoutPage.btnContinue.click();
+        CheckoutPage.checkout('Justine','Anderson','4400')
         expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
+        expect(InventoryPage.titleLinkSelector(5)).toBeDisplayed();
+        expect(InventoryPage.titleLinkSelector(0)).toBeDisplayed();
         expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
     });
 
