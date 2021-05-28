@@ -6,17 +6,15 @@ import CheckoutPage from '../pageobjects/checkout.page';
 describe('Shopping cart', () => {
 
     describe('Basic Flow', () => {
-        
+
         it('should select a product, proceed to checkout and continue', () => {
             LoginPage.open();
             LoginPage.login('standard_user','secret_sauce');
             InventoryPage.btnAddTestTShirt.click();
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();
-            CheckoutPage.inputFirstName.setValue('Natalie');
-            CheckoutPage.inputLastName.setValue('Dawn');
-            CheckoutPage.inputPostalCode.setValue('2700');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('Natalie', 'Dawn', '2700');
+            expect(InventoryPage.titleLinkSelector(3)).toBeDisplayed();
             expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
             expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
         });
@@ -26,10 +24,7 @@ describe('Shopping cart', () => {
             InventoryPage.btnAddBackpack.click();
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();
-            CheckoutPage.inputFirstName.setValue(' '); //The app does not validate what is entered in this input field
-            CheckoutPage.inputLastName.setValue(' ');  //The app does not validate what is entered in this input field
-            CheckoutPage.inputPostalCode.setValue(' '); //The app does not validate what is entered in this input field
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout(' ', ' ', ' '); //The app does not validate what is entered in the input fields
             CheckoutPage.btnFinish.click();
             expect(CheckoutPage.title).toHaveText('CHECKOUT: COMPLETE!');
             expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
@@ -40,15 +35,11 @@ describe('Shopping cart', () => {
             InventoryPage.btnAddBackpack.click();
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();
-            CheckoutPage.inputFirstName.setValue('12345'); 
-            CheckoutPage.inputLastName.setValue('6789');  
-            CheckoutPage.inputPostalCode.setValue('myZipCode');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('12345','6789','myZipCode');//The app does not validate what is entered in the input fields
             CheckoutPage.btnFinish.click();
             CartPage.btnB2products.click();
             expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
         });
-
     });
 
     describe('Wrong Inputs', () => {
@@ -60,45 +51,35 @@ describe('Shopping cart', () => {
             InventoryPage.btnCart.click();
             browser.pause(2000);
             CartPage.btnCheckOut.click();
-            CheckoutPage.inputFirstName.setValue('');
-            CheckoutPage.inputLastName.setValue('');
-            CheckoutPage.inputPostalCode.setValue('');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('', '', '');
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: First Name is required');
         }); 
 
         it('should show error message when giving empty last name and zip code', () => {
             CheckoutPage.open('step-one');
-            CheckoutPage.inputFirstName.setValue('Natalie');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('Natalie','','');
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Last Name is required');
         });
 
         it('should show error message when giving empty zip code', () => {
             CheckoutPage.open('step-one');
-            CheckoutPage.inputFirstName.setValue('Natalie');
-            CheckoutPage.inputLastName.setValue('Dawn');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('Natalie', 'Dawn','');
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Postal Code is required');
         });
 
         it('should show error message when giving empty last name', () => {
             CheckoutPage.open('step-one');
-            CheckoutPage.inputFirstName.setValue('Natalie');
-            CheckoutPage.inputPostalCode.setValue('3000');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('Natalie','', '2700');
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Last Name is required');
         });
 
         it('should show error message when giving empty first name', () => {
             CheckoutPage.open('step-one');
-            CheckoutPage.inputLastName.setValue('Dawn');
-            CheckoutPage.inputPostalCode.setValue('3000');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('','Dawn', '2700');
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: First Name is required');
         });
@@ -119,10 +100,7 @@ describe('Shopping cart', () => {
 
         it('should  and then cancel', () => {
             CheckoutPage.open('step-one');
-            CheckoutPage.inputFirstName.setValue('Natalie');
-            CheckoutPage.inputLastName.setValue('Dawn');
-            CheckoutPage.inputPostalCode.setValue('3000');
-            CheckoutPage.btnContinue.click();
+            CheckoutPage.checkout('Natalie', 'Dawn', '2700');
             CheckoutPage.btnCancel.click();
             expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
         });

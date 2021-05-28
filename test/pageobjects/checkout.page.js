@@ -15,6 +15,13 @@ class CheckoutPage extends Page {
     open (path2) {
         return super.open(`checkout-${path2}.html`);
     }
+
+    checkout(firstName, lastName, zipCode) {
+        this.inputFirstName.setValue(firstName);
+        this.inputLastName.setValue(lastName);
+        this.inputPostalCode.setValue(zipCode);
+        this.btnContinue.click();
+    }
  
 }
 
