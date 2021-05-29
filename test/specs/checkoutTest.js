@@ -2,6 +2,7 @@ import LoginPage from '../pageobjects/login.page';
 import InventoryPage from '../pageobjects/inventory.page';
 import CartPage from '../pageobjects/cart.page';
 import CheckoutPage from '../pageobjects/checkout.page';
+const NumericRegex = /[-]{0,1}[\d]*[.]{0,1}[\d]+/;
 
 describe('Shopping cart', () => {
 
@@ -14,8 +15,19 @@ describe('Shopping cart', () => {
             InventoryPage.btnCart.click();
             CartPage.btnCheckOut.click();
             CheckoutPage.checkout('Natalie', 'Dawn', '2700');
+            let total = CheckoutPage.total.getText();
+            total = parseFloat(total.match(NumericRegex));
+            let subtotal = CheckoutPage.subtotal.getText();
+            subtotal = parseFloat(subtotal.match(NumericRegex));
+            let tax = CheckoutPage.tax.getText();
+            tax = parseFloat(tax.match(NumericRegex));
+            let expectedTax = subtotal * 0.08
+            const taxRounded = Math.round(expectedTax * 100) / 100
             expect(InventoryPage.titleLinkSelector(3)).toBeDisplayed();
             expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
+            expect(subtotal).toBe(15.99);
+            expect(tax).toBe(taxRounded);
+            expect(total).toBe(taxRounded+subtotal);
             expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
         });
 
@@ -83,7 +95,6 @@ describe('Shopping cart', () => {
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: First Name is required');
         });
-
     });
 
     describe('Cancel Purchase', () => {
@@ -98,12 +109,11 @@ describe('Shopping cart', () => {
             expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
         }); 
 
-        it('should  and then cancel', () => {
+        it('should checkout and then cancel', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('Natalie', 'Dawn', '2700');
             CheckoutPage.btnCancel.click();
             expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
         });
-
     });
 });

@@ -12,6 +12,11 @@ class CheckoutPage extends Page {
     get inputLastName() { return $('[name="lastName"]')}
     get inputPostalCode() { return $('[name="postalCode"]')}
 
+    //Cost Summary
+     get subtotal() { return $('.summary_subtotal_label')}
+     get tax() { return $('.summary_tax_label')}
+     get total() { return $('.summary_total_label')}
+
     open (path2) {
         return super.open(`checkout-${path2}.html`);
     }
