@@ -59,9 +59,18 @@ describe('Login Form', () => {
             LoginPage.open();
             LoginPage.login('problem_user','secret_sauce');
             browser.pause(2000);
-            expect(InventoryPage.imgBackpack).not.toHaveAttributeContaining('src', '/static/media/sauce-backpack-1200x1500.34e7aa42.jpg');
-            expect(InventoryPage.imgBikeLight).not.toHaveAttributeContaining('src', '/static/media/bike-light-1200x1500.a0c9caae.jpg');
-            expect(InventoryPage.imgBoltTShirt).not.toHaveAttributeContaining('src', '/static/media/bolt-shirt-1200x1500.c0dae290.jpg"');
+            expect(InventoryPage.imgPrblmUsr).
+            toHaveAttributeContaining('src', '/static/media/sl-404.168b1cce.jpg'); // Wrong image
         }); 
+    });
+
+    describe('Close error alert', () => {
+        it('should back form to normal', () => {
+            LoginPage.open();
+            LoginPage.login('','');
+            LoginPage.errorCross.click();
+            expect(LoginPage.errorMsg).not.toBeDisplayed();
+            expect(LoginPage.inputUsername).not.toHaveElementClass('input_error form_input error');
+        });
     });
 });

@@ -7,7 +7,7 @@ class LoginPage extends Page {
     get btnSubmit () { return $('[name="login-button"]') }
     get divErrorMsg () { return $('.error-message-container')}
     get errorMsg () { return $('h3')}
-   
+    get errorCross() { return $('.error-button')}
    
     open () {
         return super.open('');
