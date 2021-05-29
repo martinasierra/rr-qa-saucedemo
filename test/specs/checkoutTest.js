@@ -97,6 +97,20 @@ describe('Shopping cart', () => {
         });
     });
 
+    describe('Close error alert', () => {
+        it('should back form to normal', () => {
+            CheckoutPage.open('step-one');
+            browser.pause(2000);
+            CheckoutPage.checkout('','','');
+            browser.pause(2000);
+            CheckoutPage.errorCross.click();
+            expect(CheckoutPage.errorMsg).not.toBeDisplayed();
+            expect(CheckoutPage.inputFirstName).not.toHaveElementClass('input_error form_input error');
+            expect(CheckoutPage.inputLastName).not.toHaveElementClass('input_error form_input error');
+            expect(CheckoutPage.inputPostalCode).not.toHaveElementClass('input_error form_input error');
+        });
+    });
+
     describe('Cancel Purchase', () => {
 
         it('should select a product, proceed to checkout and then cancel', () => {
