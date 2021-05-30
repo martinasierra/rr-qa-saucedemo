@@ -1,6 +1,9 @@
 import Page from './page';
 
 class InventoryPage extends Page {
+
+    //Title
+    get title() { return $('.title')}
   
     //Filters
     get dropdownFilter() { return $('[data-test="product_sort_container"]')}
@@ -37,6 +40,8 @@ class InventoryPage extends Page {
     get btnAddOnesie() { return $('[name="add-to-cart-sauce-labs-onesie"]')}
     get btnRmOnesie() { return $('[name="remove-sauce-labs-onesie"]')}
 
+    //Problem User Image
+    get imgPrblmUsr() { return $('.inventory_item_img img')}
    
     //Social Media Links
     get btnTwitterLink() { return $('.social_twitter a')}

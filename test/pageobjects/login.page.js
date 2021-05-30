@@ -8,6 +8,7 @@ class LoginPage extends Page {
     get divErrorMsg () { return $('.error-message-container')}
     get errorMsg () { return $('h3')}
     get errorCross() { return $('.error-button')}
+    get title() { return $('.title')}
    
     open () {
         return super.open('');

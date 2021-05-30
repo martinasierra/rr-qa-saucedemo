@@ -64,13 +64,24 @@ describe('Login Form', () => {
         }); 
     });
 
+    describe('Performance Glitch User', () => {
+        it('should log in in a version with lag', () => {
+            LoginPage.open();
+            LoginPage.login('performance_glitch_user','secret_sauce');
+            browser.pause(2000);
+            expect(InventoryPage.title).toHaveText('PRODUCTS');
+        }); 
+    })
+
     describe('Close error alert', () => {
         it('should back form to normal', () => {
             LoginPage.open();
             LoginPage.login('','');
             LoginPage.errorCross.click();
+            browser.pause(2000);
             expect(LoginPage.errorMsg).not.toBeDisplayed();
             expect(LoginPage.inputUsername).not.toHaveElementClass('input_error form_input error');
+            expect(LoginPage.inputPassword).not.toHaveElementClass('input_error form_input error');
         });
     });
 });

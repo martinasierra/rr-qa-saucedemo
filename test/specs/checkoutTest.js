@@ -13,6 +13,8 @@ describe('Shopping cart', () => {
             LoginPage.login('standard_user','secret_sauce');
             InventoryPage.btnAddTestTShirt.click();
             InventoryPage.btnCart.click();
+            browser.pause(2000);
+            expect(InventoryPage.titleLinkSelector(3)).toBeDisplayed();
             CartPage.btnCheckOut.click();
             CheckoutPage.checkout('Natalie', 'Dawn', '2700');
             let total = CheckoutPage.total.getText();
@@ -23,6 +25,7 @@ describe('Shopping cart', () => {
             tax = parseFloat(tax.match(NumericRegex));
             let expectedTax = subtotal * 0.08
             const taxRounded = Math.round(expectedTax * 100) / 100
+            browser.pause(2000);
             expect(InventoryPage.titleLinkSelector(3)).toBeDisplayed();
             expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
             expect(subtotal).toBe(15.99);
@@ -38,6 +41,7 @@ describe('Shopping cart', () => {
             CartPage.btnCheckOut.click();
             CheckoutPage.checkout(' ', ' ', ' '); //The app does not validate what is entered in the input fields
             CheckoutPage.btnFinish.click();
+            browser.pause(2000);
             expect(CheckoutPage.title).toHaveText('CHECKOUT: COMPLETE!');
             expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
         });
@@ -50,6 +54,7 @@ describe('Shopping cart', () => {
             CheckoutPage.checkout('12345','6789','myZipCode');//The app does not validate what is entered in the input fields
             CheckoutPage.btnFinish.click();
             CartPage.btnB2products.click();
+            browser.pause(2000);
             expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
         });
     });
@@ -64,6 +69,7 @@ describe('Shopping cart', () => {
             browser.pause(2000);
             CartPage.btnCheckOut.click();
             CheckoutPage.checkout('', '', '');
+            browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: First Name is required');
         }); 
@@ -71,6 +77,7 @@ describe('Shopping cart', () => {
         it('should show error message when giving empty last name and zip code', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('Natalie','','');
+            browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Last Name is required');
         });
@@ -78,6 +85,7 @@ describe('Shopping cart', () => {
         it('should show error message when giving empty zip code', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('Natalie', 'Dawn','');
+            browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Postal Code is required');
         });
@@ -85,6 +93,7 @@ describe('Shopping cart', () => {
         it('should show error message when giving empty last name', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('Natalie','', '2700');
+            browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: Last Name is required');
         });
@@ -92,6 +101,7 @@ describe('Shopping cart', () => {
         it('should show error message when giving empty first name', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('','Dawn', '2700');
+            browser.pause(2000);
             expect(LoginPage.divErrorMsg).toBeDisplayed();
             expect(LoginPage.errorMsg).toHaveText('Error: First Name is required');
         });
@@ -104,6 +114,7 @@ describe('Shopping cart', () => {
             CheckoutPage.checkout('','','');
             browser.pause(2000);
             CheckoutPage.errorCross.click();
+            browser.pause(2000);
             expect(CheckoutPage.errorMsg).not.toBeDisplayed();
             expect(CheckoutPage.inputFirstName).not.toHaveElementClass('input_error form_input error');
             expect(CheckoutPage.inputLastName).not.toHaveElementClass('input_error form_input error');
@@ -127,6 +138,7 @@ describe('Shopping cart', () => {
             CheckoutPage.open('step-one');
             CheckoutPage.checkout('Natalie', 'Dawn', '2700');
             CheckoutPage.btnCancel.click();
+            browser.pause(2000);
             expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
         });
     });

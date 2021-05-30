@@ -48,6 +48,7 @@ describe('Shopping cart', () => {
 
     it('should return to the Inventory by clicking in Continue Shopping', () => {
     CartPage.btnContinueShopping.click();
+    browser.pause(2000);
     expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
     });
 
@@ -55,6 +56,7 @@ describe('Shopping cart', () => {
         InventoryPage.btnCart.click();
         InventoryPage.btnMenu.click();
         InventoryPage.btnAllItems.click();
+        browser.pause(2000);
         expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
     });
 });

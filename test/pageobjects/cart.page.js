@@ -7,7 +7,7 @@ class CartPage extends Page {
     get btnContinueShopping() { return $('[name="continue-shopping"]')}
     get btnB2products() { return $('[name="back-to-products"]')}
 
-    //
+    //Remove Products
     get rmCartItems() { return $$('.removed_cart_item')}
     
     open () {

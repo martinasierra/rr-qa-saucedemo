@@ -14,13 +14,16 @@ describe('Products Inventory', () => {
         it('should allow access to Products Inventory',() => {
             LoginPage.open();
             LoginPage.login('standard_user','secret_sauce');
+            browser.pause(2000);
             expect(InventoryPage.title).toHaveText('PRODUCTS');
         }); 
     });
 
     describe('Filters', () => {
+        // I tried changing the compareFunction to be the other way a round in the tests to see if they don't pass when tecnically the arrays are different because one is sorted correctly and the other backwards(no the way it should be). That tests didn't pass so I asume the procedures are correct I hope.
         it('should show dropdown optins when clicking it', () => {
             InventoryPage.dropdownFilter.click();
+            browser.pause(2000);
             expect(InventoryPage.filterAZ).toBeDisplayed();
             expect(InventoryPage.filterZA).toBeDisplayed();
             expect(InventoryPage.filterLoHi).toBeDisplayed();
@@ -30,54 +33,71 @@ describe('Products Inventory', () => {
         it('should select filter to be Z to A and order it', () => {
             InventoryPage.filterZA.click();
             browser.pause(2000);
-            let sortedElementsNames = [];
+            let itemsNames = InventoryPage.itemsName.map(element => element.getText())
+            let sortedNames = [];
             InventoryPage.itemsName.forEach(element => {
-                sortedElementsNames.push(element.getText());
+            sortedNames.push(element.getText());
             });
-            let mockedSortedNames = [];
-            InventoryPage.itemsName.forEach(element => {
-            mockedSortedNames.push(element.getText());
-            });
-            mockedSortedNames = mockedSortedNames.sort(function (a, b) {
+            sortedNames = sortedNames.sort(function (a, b) {
                 if (a > b) return -1;
                 else if (a < b) return 1;
                 return 0;
             });
-            expect(sortedElementsNames).toEqual(mockedSortedNames);
+            browser.pause(2000);
+            expect(itemsNames).toEqual(sortedNames); 
         });
 
         it('should select filter to be A to Z and order it', () => {
             InventoryPage.filterAZ.click();
             browser.pause(2000);
-            let sortedElementsNames = [];
+            let itemsNames = InventoryPage.itemsName.map(element => element.getText())
+            let sortedNames = [];
             InventoryPage.itemsName.forEach(element => {
-                sortedElementsNames.push(element.getText());
+                sortedNames.push(element.getText());
             });
-            let mockedSortedNames = [];
-            InventoryPage.itemsName.forEach(element => {
-                mockedSortedNames.push(element.getText());
-            });
-            mockedSortedNames = mockedSortedNames.sort();
-            expect(sortedElementsNames).toEqual(mockedSortedNames);
+            sortedNames = sortedNames.sort();
+            browser.pause(2000);
+            expect(itemsNames).toEqual(sortedNames);
         });
 
         it('should select filter to be Low to High Price and order it', () =>{
             InventoryPage.filterLoHi.click();
             browser.pause(2000);
-            let sortedElementsPrices = [];
+            let itemsPrices = [];
             InventoryPage.itemsPrice.forEach(element => {
                 let numPriceText = element.getText();
                 let numPrice = parseFloat(numPriceText.match(NumericRegex));
-                sortedElementsPrices.push(numPrice);
+                itemsPrices.push(numPrice);
             });
-            let mockedSortedPrices = [];
+            let sortedPrices = [];
             InventoryPage.itemsPrice.forEach(element => {
                 let numPriceText = element.getText();
                 let numPrice = parseFloat(numPriceText.match(NumericRegex));
-                mockedSortedPrices.push(numPrice);
+                sortedPrices.push(numPrice);
             });
-            mockedSortedPrices = mockedSortedPrices.sort((a,b)=>a-b);
-            expect(sortedElementsPrices).toEqual(mockedSortedPrices);
+            sortedPrices = sortedPrices.sort((a,b)=>a-b);
+            browser.pause(2000);
+            expect(itemsPrices).toEqual(sortedPrices);
+        });
+
+        it('should select filter to be High to Low Price and order it', () =>{
+            InventoryPage.filterHiLo.click();
+            browser.pause(2000);
+            let itemsPrices = [];
+            InventoryPage.itemsPrice.forEach(element => {
+                let numPriceText = element.getText();
+                let numPrice = parseFloat(numPriceText.match(NumericRegex));
+                itemsPrices.push(numPrice);
+            });
+            let sortedPrices = [];
+            InventoryPage.itemsPrice.forEach(element => {
+                let numPriceText = element.getText();
+                let numPrice = parseFloat(numPriceText.match(NumericRegex));
+                sortedPrices.push(numPrice);
+            });
+            sortedPrices = sortedPrices.sort((a,b)=>b-a);
+            browser.pause(2000);
+            expect(itemsPrices).toEqual(sortedPrices);
         });
     });
 
@@ -166,10 +186,10 @@ describe('Products Inventory', () => {
         }); 
     });
  
-
     describe('Cart', () => {
         it('should lead to shopping cart', () => {
             InventoryPage.btnCart.click();
+            browser.pause(2000);
             expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
             });
     }); 
@@ -177,8 +197,9 @@ describe('Products Inventory', () => {
     describe('Burger Menu', () => {
         it('should open menu', () => {
             InventoryPage.open();
-            InventoryPage.btnMenu.click();
             browser.pause(2000);
+            InventoryPage.btnMenu.click();
+            browser.pause(3000);
             expect(InventoryPage.wprapMenu).toBeDisplayed();
         });
 

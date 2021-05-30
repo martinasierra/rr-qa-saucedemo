@@ -2,6 +2,9 @@ import Page from './page';
 
 class CheckoutPage extends Page {
   
+    //Title
+    get title() { return $('.title')}
+
     //Buttons
     get btnCancel() { return $('[name="cancel"]')}
     get btnContinue() { return $('[type="submit"]')}
@@ -17,7 +20,7 @@ class CheckoutPage extends Page {
     get tax() { return $('.summary_tax_label')}
     get total() { return $('.summary_total_label')}
 
-    //
+    //Error Message
     get divErrorMsg () { return $('.error-message-container')}
     get errorMsg () { return $('h3')}
     get errorCross() { return $('.error-button')}
